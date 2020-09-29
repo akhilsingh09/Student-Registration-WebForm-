@@ -26,12 +26,13 @@ namespace Student_Registration
             SqlCommand command = GetCommand(query);
             DataSet ds = new DataSet();
             SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(ds, "StudentReg");
-            dgvStudentReg.DataSource = ds.Tables["StudentReg"];
+            adapter.Fill(ds, "akhil_StudentReg");
+            dgvStudentReg.DataSource = ds.Tables["akhil_StudentReg"];
             dgvStudentReg.DataBind();
         }
 
-        SqlConnection con = new SqlConnection(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=SampleDB;Integrated Security=True");
+        //SqlConnection con = new SqlConnection(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=SampleDB;Integrated Security=True");
+        SqlConnection con = new SqlConnection(@"Data Source=sksdemoazuresql.database.windows.net,1433;Initial Catalog=knowledgesession;Persist Security Info=False;User ID=ssaminathan;Password=asdf1234$");
         string gender = string.Empty;
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -51,7 +52,7 @@ namespace Student_Registration
                 gender = "Female";
             }
 
-            SqlCommand cmd = new SqlCommand("Insert into StudentReg(StudentName, FatherName,Age,Program,Country,Address,ContactNumber,Email,Gender,StudentID) values (@SName,@FatherName, @Age, @Program,@Country,@Address,@Mobile,@Email,@Gender,@SId)", con);
+            SqlCommand cmd = new SqlCommand("Insert into akhil_StudentReg(StudentName, FatherName,Age,Program,Country,Address,ContactNumber,Email,Gender,StudentID) values (@SName,@FatherName, @Age, @Program,@Country,@Address,@Mobile,@Email,@Gender,@SId)", con);
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@SName", txtSName.Text);
             cmd.Parameters.AddWithValue("@FatherName", txtFName.Text);
@@ -108,7 +109,7 @@ namespace Student_Registration
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-            SqlCommand cmd = new SqlCommand("Delete from StudentReg WHERE StudentID=@ID", con);
+            SqlCommand cmd = new SqlCommand("Delete from akhil_StudentReg WHERE StudentID=@ID", con);
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@ID", txtID.Text);
 
@@ -132,7 +133,7 @@ namespace Student_Registration
             {
                 gender = "Female";
             }
-            SqlCommand cmd = new SqlCommand("Update StudentReg SET StudentName=@SName, FatherName=@FatherName,Age=@Age,Program=@Program,Country=@Country,Address=@Address,ContactNumber=@Mobile,Email=@Email,Gender=@Gender WHERE StudentID=@SId", con);
+            SqlCommand cmd = new SqlCommand("Update akhil_StudentReg SET StudentName=@SName, FatherName=@FatherName,Age=@Age,Program=@Program,Country=@Country,Address=@Address,ContactNumber=@Mobile,Email=@Email,Gender=@Gender WHERE StudentID=@SId", con);
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@SName", txtSName.Text);
             cmd.Parameters.AddWithValue("@FatherName", txtFName.Text);
@@ -167,7 +168,7 @@ namespace Student_Registration
         {
             string connectionString = string.Empty;
 
-            connectionString = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
+            connectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
             SqlConnection connection = new SqlConnection(connectionString);
 
             connection.Open();
@@ -181,7 +182,7 @@ namespace Student_Registration
             int stud_id = Convert.ToInt32((sender as LinkButton).CommandArgument);
             //int rowind = ((GridView)(sender as Control).NamingContainer).SelectedRow;
 
-            SqlCommand cmd = new SqlCommand("SELECT * from StudentReg WHERE StudentID=@ID", con);
+            SqlCommand cmd = new SqlCommand("SELECT * from akhil_StudentReg WHERE StudentID=@ID", con);
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@ID", stud_id);
 
